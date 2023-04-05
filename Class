@@ -1,0 +1,179 @@
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.geometry.Insets;
+
+public class CalculatorOneOne extends Application 
+{
+
+    // Store the values and operator for the calculation
+    private String value1 = "";
+    private String value2 = "";
+    private String operator = "";
+    
+    public void start(Stage stage) 
+    {
+        
+        Pane root = new Pane();
+      
+        TextField textField1 = new TextField();
+        textField1.relocate(35, 20);
+
+        Button button1 = new Button("1");
+        button1.setTextFill(Color.web("#0076a3"));
+        button1.relocate(10, 60);
+        button1.setPrefSize(40, 40);
+        button1.setOnAction(e -> handleNumberClick("1"));
+
+        Button button2 = new Button("2");
+        button2.setTextFill(Color.web("#0076a3"));
+        button2.relocate(60, 60);
+        button2.setPrefSize(40, 40);
+        button2.setOnAction(e -> handleNumberClick("2"));
+
+        Button button3 = new Button("3");
+        button3.setTextFill(Color.web("#0076a3"));
+        button3.relocate(110, 60);
+        button3.setPrefSize(40, 40);
+        button3.setOnAction(e -> handleNumberClick("3"));
+
+        Button button4 = new Button("+");
+        button4.setTextFill(Color.web("#0076a3"));
+        button4.relocate(160, 60);
+        button4.setPrefSize(30, 30);
+        button4.setOnAction(e -> handleOperatorClick("+"));
+
+        Button button5 = new Button("4");
+        button5.setTextFill(Color.web("#0076a3"));
+        button5.relocate(10, 110);
+        button5.setPrefSize(40, 40);
+        button5.setOnAction(e -> handleNumberClick("4"));
+
+        Button button6 = new Button("5");
+        button6.setTextFill(Color.web("#0076a3"));
+        button6.relocate(60, 110);
+        button6.setPrefSize(40, 40);
+        button6.setOnAction(e -> handleNumberClick("5"));
+
+        Button button7 = new Button("6");
+        button7.setTextFill(Color.web("#0076a3"));
+        button7.relocate(110, 110);
+        button7.setPrefSize(40, 40);
+        button7.setOnAction(e -> handleNumberClick("6"));
+
+        Button button8 = new Button("-");
+        button8.setTextFill(Color.web("#0076a3"));
+        button8.relocate(160, 100);
+        button8.setPrefSize(30, 30);
+        button8.setOnAction(e -> handleOperatorClick("-"));
+
+        Button button9 = new Button("7");
+        button9.setTextFill(Color.web("#0076a3"));
+        button9.relocate(10, 160);
+        button9.setPrefSize(40, 40);
+        button9.setOnAction(e -> handleNumberClick("7"));
+
+        Button button10 = new Button("8");
+        button10.setTextFill(Color.web("#0076a3"));
+        button10.relocate(60, 160);
+        button10.setPrefSize(40, 40);
+        button10.setOnAction(e -> handleNumberClick("8"));
+
+        Button button11 = new Button("9");
+        button11.setTextFill(Color.web("#0076a3"));
+        button11.relocate(110, 160);
+        button11.setPrefSize(40, 40);
+       button11.setOnAction(e -> handleNumberClick("9"));
+
+       Button button12 = new Button("*");
+       button12.setTextFill(Color.web("#0076a3"));
+       button12.relocate(160, 140);
+       button12.setPrefSize(30, 30);
+       button12.setOnAction(e -> handleOperatorClick("*"));
+       
+       Button button13 = new Button("C");
+       button13.setTextFill(Color.web("#0076a3"));
+       button13.relocate(10, 210);
+       button13.setPrefSize(90, 40);
+       button13.setOnAction(e -> handleClearClick());
+
+       Button button14 = new Button("0");
+       button14.setTextFill(Color.web("#0076a3"));
+       button14.relocate(60, 210);
+       button14.setPrefSize(40, 40);
+       button14.setOnAction(e -> handleNumberClick("0"));
+
+        Button button15 = new Button("=");
+        button15.setTextFill(Color.web("#0076a3"));
+        button15.relocate(110, 210);
+        button15.setPrefSize(90, 40);
+        button15.setOnAction(e -> handleEqualsClick());
+
+        Button button16 = new Button("/");
+        button16.setTextFill(Color.web("#0076a3"));
+        button16.relocate(160, 180);
+        button16.setPrefSize(30, 30);
+        button16.setOnAction(e -> handleOperatorClick("/"));
+
+        root.getChildren().addAll(textField1, button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15, button16);
+
+        Scene scene = new Scene(root, 210, 270, Color.WHITE);
+        stage.setScene(scene);
+        stage.setTitle("Calculator");
+        stage.show();
+    }
+
+    private void handleNumberClick(String number) 
+    {
+        if (operator.equals("")) 
+        {
+            value1 += number;
+        } 
+        else 
+        {
+            value2 += number;
+        }
+    }
+
+    private void handleOperatorClick(String operator) 
+    {
+        this.operator = operator;
+    }
+
+    private void handleEqualsClick() 
+    {
+        double result = 0.0;
+        switch (operator) 
+        {
+            case "+":
+                result = Double.parseDouble(value1) + Double.parseDouble(value2);
+                break;
+            case "-":
+                result = Double.parseDouble(value1) - Double.parseDouble(value2);
+                break;
+            case "*":
+                result = Double.parseDouble(value1) * Double.parseDouble(value2);
+                break;
+            case "/":
+                result = Double.parseDouble(value1) / Double.parseDouble(value2);
+                break;
+        }
+        TextField textField1 = (TextField) ((Pane) Stage.getScene().getRoot()).getChildren().get(0);
+        textField1.setText(Double.toString(result));
+        value1 = Double.toString(result);
+        value2 = "";
+        operator = "";
+    }
+
+    private void handleClearClick() 
+    {
+        TextField textField1 = (TextField) ((Pane) Stage.getScene().getRoot()).getChildren().get(0);
+        textField1.clear();
+        value1 = "";
+        value2 = "";
+        operator = "";
+    }
+
